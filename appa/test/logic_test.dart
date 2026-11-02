@@ -168,8 +168,9 @@ void main() {
     test('every tap step has a target and a hint', () {
       for (final w in phaseOneWalkthroughs) {
         for (final st in w.steps) {
-          if (st.expects == Tap)
+          if (st.expects == Tap) {
             expect(st.target, isNotNull, reason: '${w.id} ${st.screen}');
+          }
           expect(st.hint, isNotNull, reason: '${w.id} ${st.screen}');
         }
       }

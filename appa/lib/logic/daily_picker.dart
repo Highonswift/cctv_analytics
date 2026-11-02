@@ -41,8 +41,9 @@ Contact? contactForDay(
   final ordered = [...contacts]
     ..sort((a, b) {
       final la = a.lastCalled, lb = b.lastCalled;
-      if (la == null && lb == null)
+      if (la == null && lb == null) {
         return contacts.indexOf(a).compareTo(contacts.indexOf(b));
+      }
       if (la == null) return -1;
       if (lb == null) return 1;
       return la.compareTo(lb);

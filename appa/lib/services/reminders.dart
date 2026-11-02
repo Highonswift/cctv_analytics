@@ -103,8 +103,9 @@ class DeviceReminders implements Reminders {
   Future<String?> launchPayload() async {
     if (kIsWeb) return null;
     final details = await _plugin.getNotificationAppLaunchDetails();
-    if (details?.didNotificationLaunchApp ?? false)
+    if (details?.didNotificationLaunchApp ?? false) {
       return details!.notificationResponse?.payload;
+    }
     return null;
   }
 

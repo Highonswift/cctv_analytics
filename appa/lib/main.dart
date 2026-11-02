@@ -43,10 +43,11 @@ Future<void> main() async {
   runApp(AppaApp(state: state));
 
   final launched = await reminders.launchPayload();
-  if (launched != null)
+  if (launched != null) {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) => _openFromReminder(launched),
     );
+  }
 }
 
 void _openFromReminder(String payload) {

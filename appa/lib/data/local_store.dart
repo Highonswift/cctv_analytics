@@ -108,8 +108,9 @@ class LocalStore {
   }) async {
     await _prefs.setString(_kSyncUrl, url);
     await _prefs.setString(_kSyncKey, key);
-    if (householdCode != null)
+    if (householdCode != null) {
       await _prefs.setString(_kHousehold, householdCode);
+    }
   }
 
   Future<void> saveHouseholdCode(String code) =>

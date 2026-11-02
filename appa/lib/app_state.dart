@@ -308,8 +308,9 @@ class AppState extends ChangeNotifier {
       if (role == DeviceRole.appa) {
         code = await sync.createHousehold(displayName: displayName);
       } else {
-        if (joinCode == null || joinCode.trim().isEmpty)
+        if (joinCode == null || joinCode.trim().isEmpty) {
           throw ArgumentError('Join code needed');
+        }
         await sync.joinHousehold(code: joinCode, displayName: displayName);
         code = joinCode.trim().toUpperCase();
       }

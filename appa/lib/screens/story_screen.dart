@@ -23,8 +23,9 @@ class _StoryScreenState extends State<StoryScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final s = context.read<AppState>();
-      if (!s.answeredToday)
+      if (!s.answeredToday) {
         s.speaker.speak('இன்றைய கேள்வி. ${s.todaysPrompt.tamil}');
+      }
       s.pullReplies();
     });
   }

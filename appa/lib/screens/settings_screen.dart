@@ -185,10 +185,11 @@ class _ReminderEditor extends StatelessWidget {
         context: context,
         initialTime: TimeOfDay(hour: current.hour, minute: current.minute),
       );
-      if (picked != null)
+      if (picked != null) {
         await s.updateReminders(
           apply(TimeOfDayMinutes(picked.hour, picked.minute)),
         );
+      }
     }
 
     Widget row(
