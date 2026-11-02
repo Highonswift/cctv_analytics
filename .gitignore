@@ -1,0 +1,12 @@
+backend/venv/
+backend/.env
+backend/storage/videos/
+backend/storage/images/
+backend/storage/crops/
+backend/storage/results/
+backend/__pycache__/
+**/__pycache__/
+*.pyc
+
+frontend/node_modules/
+frontend/dist/

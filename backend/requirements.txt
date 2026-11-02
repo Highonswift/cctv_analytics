@@ -1,0 +1,18 @@
+fastapi>=0.115
+uvicorn[standard]>=0.30
+python-multipart>=0.0.9
+pydantic-settings>=2.4
+opencv-python>=4.10
+numpy>=1.26
+ultralytics>=8.4
+lap>=0.5.12
+
+# Optional, for person re-identification (REID_ENABLED=true, the default): merges the
+# several track ids one person gets in a video so they are checked once. Without it the
+# app still works and just uses one crop per track.
+# NOTE: `pip install torchreid` installs a DIFFERENT PyPI package that lacks the API used
+# here. Install the original from GitHub -- full, verified steps in howtosetup.md (A3.3):
+#   pip install scipy gdown h5py imageio tensorboard
+#   git clone --depth 1 https://github.com/KaiyangZhou/deep-person-reid.git
+#   (copy its `torchreid/` folder into your venv's Lib/site-packages/)
+# Then set REID_MODEL_PATH in .env to an OSNet checkpoint -- see howtosetup.md.

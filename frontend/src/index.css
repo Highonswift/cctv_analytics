@@ -1,0 +1,352 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #0f1115;
+  color: #e6e8eb;
+}
+
+.person-detection-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr 340px;
+  gap: 16px;
+  height: 100vh;
+  padding: 16px;
+}
+
+.panel {
+  background: #171a21;
+  border: 1px solid #262b36;
+  border-radius: 10px;
+  padding: 16px;
+  overflow-y: auto;
+  /* Without this, a grid/flex item won't shrink below its content's natural
+     size, so overflow-y:auto never kicks in -- the panel (and the whole
+     page under it) just grows instead of scrolling internally. */
+  min-height: 0;
+}
+
+.panel h2 {
+  margin-top: 0;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #9aa4b2;
+}
+
+/* Left panel */
+.dropzone {
+  border: 2px dashed #3a4152;
+  border-radius: 8px;
+  padding: 24px 12px;
+  text-align: center;
+  cursor: pointer;
+  color: #9aa4b2;
+  font-size: 14px;
+}
+
+.dropzone:hover {
+  border-color: #5b8cff;
+  color: #cfd6e4;
+}
+
+.error-text {
+  color: #ff6b6b;
+  font-size: 13px;
+}
+
+/* Center panel */
+.center-panel {
+  display: flex;
+  /* Flex's default align-items:stretch forces .video-grid to the panel's
+     own (viewport-capped) height, which then squeezes every row of tiles to
+     fit inside it instead of the panel scrolling. flex-start lets the grid
+     take its natural, content-based height instead, so it overflows the
+     panel normally and the panel's own overflow-y:auto (from .panel)
+     scrolls it. */
+  align-items: flex-start;
+}
+
+.empty-hint {
+  color: #6b7280;
+  margin: auto;
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
+  align-content: start;
+  width: 100%;
+}
+
+.video-tile {
+  position: relative;
+  background: #10131a;
+  border: 1px solid #262b36;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.video-tile-selected {
+  border-color: #5b8cff;
+}
+
+.video-tile video {
+  width: 100%;
+  height: 130px;
+  background: #000;
+  display: block;
+}
+
+.video-tile-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 8px;
+  font-size: 12px;
+  gap: 6px;
+}
+
+.video-tile-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #cfd6e4;
+}
+
+.video-tile-status {
+  flex-shrink: 0;
+  color: #9aa4b2;
+}
+
+.status-error {
+  color: #ff6b6b;
+}
+
+.video-tile-tick {
+  position: absolute;
+  right: 6px;
+  bottom: 34px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #2ecc71;
+  color: #0f1115;
+  font-size: 14px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 0 2px #10131a;
+}
+
+/* Right panel */
+.results-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.result-section {
+  border: 1px solid #262b36;
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+
+.result-section-active {
+  border-color: #5b8cff;
+}
+
+.result-section h3 {
+  margin: 0 0 6px;
+  font-size: 13px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #cfd6e4;
+}
+
+.result-status {
+  color: #9aa4b2;
+  font-size: 13px;
+  margin: 4px 0;
+}
+
+.person-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.person-item {
+  border-top: 1px solid #1f2430;
+  padding-top: 8px;
+}
+
+.person-line {
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.gear-badges {
+  display: flex;
+  gap: 6px;
+  margin-top: 4px;
+  flex-wrap: wrap;
+}
+
+.gear-badge {
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid #262b36;
+}
+
+.gear-ok {
+  color: #2ecc71;
+  border-color: #2ecc71;
+}
+
+.gear-missing {
+  color: #ff6b6b;
+  border-color: #ff6b6b;
+}
+
+.gear-unknown {
+  color: #9aa4b2;
+}
+
+/* Chat (Gemini assistant over every saved result) */
+.chat-panel {
+  margin-top: 20px;
+  padding-top: 12px;
+  border-top: 1px solid #262b36;
+}
+
+.chat-panel-label {
+  font-size: 12px;
+  color: #9aa4b2;
+  margin-bottom: 4px;
+}
+
+.chat-panel-hint {
+  font-size: 11px;
+  color: #6b7280;
+  margin: 0 0 8px;
+}
+
+.chat-log {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.chat-exchange {
+  font-size: 13px;
+}
+
+.chat-question {
+  color: #cfd6e4;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.chat-answer {
+  color: #9aa4b2;
+  white-space: pre-wrap;
+  line-height: 1.4;
+}
+
+.chat-answer-pending {
+  font-style: italic;
+  color: #6b7280;
+}
+
+.chat-answer-error {
+  color: #ff6b6b;
+}
+
+.chat-panel-box {
+  display: flex;
+  gap: 6px;
+}
+
+.chat-panel-box input {
+  flex: 1;
+  background: #10131a;
+  border: 1px solid #262b36;
+  border-radius: 6px;
+  padding: 8px;
+  color: #e6e8eb;
+}
+
+.chat-panel-box input:disabled {
+  color: #6b7280;
+}
+
+.chat-panel-box button {
+  background: #5b8cff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  color: #0f1115;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.chat-panel-box button:disabled {
+  background: #262b36;
+  color: #6b7280;
+  cursor: default;
+}
+
+/* Clickable timeline in a chat answer */
+.timeline-chip {
+  display: inline-block;
+  margin: 0 2px;
+  padding: 1px 8px;
+  border: 1px solid #4da3ff;
+  border-radius: 10px;
+  background: transparent;
+  color: #4da3ff;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.timeline-chip:hover {
+  background: rgba(77, 163, 255, 0.15);
+}
+
+/* Additional-categories input (upload panel) */
+.model-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+  font-size: 12px;
+  color: #9aa4b2;
+}
+
+.model-picker input {
+  background: #10131a;
+  border: 1px solid #262b36;
+  border-radius: 6px;
+  padding: 7px 8px;
+  color: #cfd6e4;
+  font-size: 13px;
+}
+
+.model-picker small {
+  color: #6b7280;
+}
